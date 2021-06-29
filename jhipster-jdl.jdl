@@ -1,0 +1,58 @@
+entity Azafate{
+  	nombre String,
+    apellidos String,
+    dni String
+}
+entity Aeropuerto{
+  nombre String,
+    capacidad Integer,
+    pais String
+}
+entity Avion{
+  capacidad Integer
+}
+entity Vuelo{
+	fechaSalida Instant,
+    fechaLlegada Instant
+}
+
+entity Pasajero{
+  nombre String,
+    apellidos String,
+    dni String
+}
+
+entity Piloto{
+  nombre String,
+    apellidos String,
+    dni String
+}
+
+enum Language {
+    SPANISH, ENGLISH
+}
+
+relationship OneToOne {
+    Vuelo to Avion
+    //Vuelo{destino} to Aeropuerto
+    //Vuelo{salida} to Aeropuerto   
+}
+relationship OneToMany{
+  	Vuelo to Azafate
+    Vuelo to Piloto
+    Vuelo to Pasajero
+}
+
+relationship ManyToOne {
+    Vuelo to Aeropuerto{destino}
+    Vuelo to Aeropuerto{llegada}
+}
+
+// Set pagination options
+paginate all with pagination
+
+// Use Data Transfer Objects (DTO)
+// dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl
